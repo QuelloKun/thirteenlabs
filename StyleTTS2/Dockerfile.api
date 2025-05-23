@@ -1,0 +1,51 @@
+FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
+
+WORKDIR /app
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    python3-dev \
+    espeak \
+    espeak-ng \
+    libsndfile1 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+RUN python -c "import nltk; nltk.download('punkt_tab'); nltk.download('punkt'); nltk.download('cmudict');"
+
+COPY utils.py ./
+COPY models.py ./
+COPY Modules ./Modules
+COPY Utils ./Utils
+COPY text_utils.py ./
+COPY libri_inference.py ./
+COPY api.py ./
+COPY Models/LibriTTS/ Models/LibriTTS/
+
+# env args
+ARG AWS_REGION
+ARG S3_BUCKET
+ARG S3_PREFIX
+ARG API_KEY
+ARG CONFIG_PATH
+ARG MODEL_PATH
+
+ENV PYTHONPATH=/app
+ENV TORCH_HOME=/app/Models
+
+ENV CONFIG_PATH=${CONFIG_PATH}
+ENV MODEL_PATH=${MODEL_PATH}
+ENV AWS_REGION=${AWS_REGION}
+ENV S3_BUCKET=${S3_BUCKET}
+ENV S3_PREFIX=${S3_PREFIX}
+ENV API_KEY=${API_KEY}
+
+EXPOSE 8000
+
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]

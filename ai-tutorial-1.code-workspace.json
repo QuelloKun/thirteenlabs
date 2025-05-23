@@ -1,0 +1,39 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "Root"
+    },
+    {
+      "path": "StyleTTS2",
+      "name": "StyleTTS2"
+    },
+    {
+      "path": "Make-An-Audio",
+      "name": "Make-An-Audio"
+    },
+    {
+      "path": "StyleTTS2FineTune",
+      "name": "StyleTTS2FineTune"
+    },
+    {
+      "path": "seed-vc",
+      "name": "seed-vc"
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.fixAll": "explicit"
+    },
+    "files.associations": {
+      "**/*.env": "ini"
+    },
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    }
+  }
+}
