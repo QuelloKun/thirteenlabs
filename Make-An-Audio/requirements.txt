@@ -1,10 +1,10 @@
 --extra-index-url https://download.pytorch.org/whl/cu113
-torch
-torch-fidelity==0.3.0
+#torch==2.7.0
+torch-fidelity
 scipy
 importlib_resources
-torchaudio>=0.13.0
-torchvision>=0.14.0
+torchaudio
+torchvision
 tqdm
 omegaconf
 einops
@@ -13,8 +13,12 @@ soundfile
 librosa==0.9.2
 pandas
 torchlibrosa
-transformers==4.18.0
+transformers
 ftfy
-pytorch-lightning==1.7.0
-torchmetrics==0.11.1
+pytorch-lightning
+torchmetrics
 -e git+https://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers
+boto3
+fastapi
+pydantic
+uvicorn

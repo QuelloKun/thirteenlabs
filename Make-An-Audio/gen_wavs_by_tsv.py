@@ -9,7 +9,7 @@ from ldm.util import instantiate_from_config
 from omegaconf import OmegaConf
 import argparse
 import soundfile
-device = 'cuda' # change to 'cpu‘ if you do not have gpu. generating with cpu is very slow.
+device = 'cuda' if torch.cuda.is_available() else 'cpu' 
 SAMPLE_RATE = 16000
 
 def parse_args():
