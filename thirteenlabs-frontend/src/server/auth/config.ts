@@ -1,4 +1,3 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
@@ -30,9 +29,12 @@ declare module "next-auth" {
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
- * @see https://next-auth.js.org/configuration/options
+ * @see https://next-auth.org/configuration/options
  */
 export const authConfig = {
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Credentials({
       name: "credentials",
@@ -41,7 +43,7 @@ export const authConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        try{
+        try {
           const { email, password } = await signInSchema.parseAsync(credentials);
 
           const user = await db.user.findUnique({
@@ -65,29 +67,18 @@ export const authConfig = {
             name: user.name,
             email: user.email,
             image: user.image,
-          }
-          
-        } catch(error){
+          };
+        } catch (error) {
           return null;
         }
       },
     }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
   ],
 
   pages: {
     signIn: "/app/sign-in",
   },
 
-  adapter: PrismaAdapter(db),
   callbacks: {
     session: ({ session, token }) => ({
       ...session,
@@ -97,11 +88,11 @@ export const authConfig = {
       },
     }),
 
-    jwt: ({ token, user}) => {
+    jwt: ({ token, user }) => {
       if (user) {
         token.id = user.id;
       }
       return token;
-    }
+    },
   },
 } satisfies NextAuthConfig;

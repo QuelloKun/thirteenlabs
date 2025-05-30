@@ -65,7 +65,7 @@ export default function SignInPage() {
       <div className="relative w-full lg:w-1/2">
         <div className="absolute left-8 top-6">
           <span className="text-xl font-bold tracking-tight text-black">
-            12TwelveLabs
+            13 Labs
           </span>
         </div>
 
