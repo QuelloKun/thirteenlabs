@@ -151,13 +151,15 @@ export function TextToSpeechEditor({
         onChange={(e) => setTextContent(e.target.value)}
         placeholder={activePlaceholder}
         disabled={loading}
-        className="w-full flex-grow resize-none rounded-lg bg-white p-4 placeholder:font-light placeholder:text-gray-500 focus:border-none focus:outline-none focus:ring-0"
+        className="w-full flex-grow resize-none rounded-lg bg-white p-4 placeholder:font-light placeholder:text-gray-500 focus:border-none focus:outline-none focus:ring-0 dark:bg-gray-900 dark:text-gray-50 dark:placeholder:text-gray-400"
       />
 
       <div className="mt-4 px-0 md:px-4">
         {textContent.length === 0 ? (
           <div className="mt-auto">
-            <p className="mb-2 text-sm text-gray-500">Get started with</p>
+            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              Get started with
+            </p>
 
             <div className="flex flex-wrap gap-2">
               {[
@@ -190,7 +192,7 @@ export function TextToSpeechEditor({
               ].map(({ text, icon }) => (
                 <button
                   key={text}
-                  className="flex items-center rounded-lg border border-gray-200 bg-white p-2 text-xs hover:bg-gray-50"
+                  className="flex items-center rounded-lg border border-gray-200 bg-white p-2 text-xs text-gray-800 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                   onMouseEnter={() => handleButtonHover(text)}
                   onMouseLeave={() =>
                     setActivePlaceholder(
@@ -199,7 +201,9 @@ export function TextToSpeechEditor({
                   }
                   onClick={() => handleButtonClick(text)}
                 >
-                  <span className="mr-2 text-gray-500">{icon}</span>
+                  <span className="mr-2 text-gray-500 dark:text-gray-400">
+                    {icon}
+                  </span>
                   {text}
                 </button>
               ))}

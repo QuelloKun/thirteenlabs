@@ -1,6 +1,5 @@
 "use client";
 
-import { doesNotMatch } from "assert";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaUpload } from "react-icons/fa";
@@ -14,7 +13,13 @@ import { useAudioStore } from "~/stores/audio-store";
 import { useVoiceStore } from "~/stores/voice-store";
 import { ServiceType } from "~/types/services";
 
-const ALLOWED_AUDIO_TYPES = ["audio/mp3", "audio/mpeg", "audio/wav", "audio/x-wav", "audio/vnd.wave"];
+const ALLOWED_AUDIO_TYPES = [
+  "audio/mp3",
+  "audio/mpeg",
+  "audio/wav",
+  "audio/x-wav",
+  "audio/vnd.wave",
+];
 
 export function VoiceChanger({
   credits,
@@ -65,13 +70,11 @@ export function VoiceChanger({
       });
 
       if (!uploadResponse.ok) {
-        throw new Error("Failed ot upload file to storage");
+        throw new Error("Failed to upload file to storage");
       }
 
-      const { audioId, shouldShowThrottleAlert } = await generateSpeechToSpeech(
-        s3Key,
-        selectedVoice.id,
-      );
+      const { audioId, shouldShowThrottleAlert } =
+        await generateSpeechToSpeech(s3Key, selectedVoice.id);
 
       if (shouldShowThrottleAlert) {
         toast("Exceeding 3 requests per minute will queue your requests.", {
@@ -136,10 +139,19 @@ export function VoiceChanger({
       <div className="flex flex-1 flex-col justify-between px-4">
         <div className="flex flex-1 items-center justify-center py-8">
           <div
-            className={`w-full max-w-xl rounded-2xl border-2 border-dotted p-8 transition-all duration-200 ${isDragging ? "border-blue-400 bg-blue-50" : "border-gray-300"} ${file ? "bg-white" : "bg-gray-50"}`}
+            className={`w-full max-w-xl rounded-2xl border-2 border-dotted p-8 transition-all duration-200 ${
+              isDragging
+                ? "border-blue-400 bg-blue-50 dark:border-blue-500 dark:bg-gray-800"
+                : "border-gray-300 dark:border-gray-600"
+            } ${
+              file
+                ? "bg-white dark:bg-gray-900"
+                : "bg-gray-50 dark:bg-gray-900/50"
+            }`}
             onDragOver={() => setIsDragging(true)}
             onDragLeave={() => setIsDragging(false)}
             onDrop={(e) => {
+              e.preventDefault();
               setIsDragging(false);
 
               if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
@@ -150,8 +162,7 @@ export function VoiceChanger({
               }
             }}
             onClick={() => {
-              if (isLoading) return;
-
+              if (isLoading || file) return;
               const input = document.createElement("input");
               input.type = "file";
               input.accept = "audio/mp3,audio/wav";
@@ -169,11 +180,13 @@ export function VoiceChanger({
           >
             {file ? (
               <div className="flex flex-col items-center text-center">
-                <div className="mb-4 rounded-lg border border-gray-200 bg-white p-3">
+                <div className="mb-4 rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
                   <FaUpload className="h-4 w-4 text-blue-400" />
                 </div>
-                <p className="mb-1 text-sm font-medium">{file.name}</p>
-                <p className="mb-1 text-sm font-medium">
+                <p className="mb-1 text-sm font-medium text-gray-800 dark:text-gray-200">
+                  {file.name}
+                </p>
+                <p className="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400">
                   {(file.size / (1024 * 1024)).toFixed(2)} MB
                 </p>
                 <button
@@ -184,20 +197,24 @@ export function VoiceChanger({
                     }
                   }}
                   disabled={isLoading}
-                  className={`mt-2 text-sm ${isLoading ? "cursor-not-allowed text-gray-400" : "text-blue-600 hover:text-blue-800"}`}
+                  className={`mt-2 text-sm ${
+                    isLoading
+                      ? "cursor-not-allowed text-gray-400"
+                      : "text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                  }`}
                 >
                   Choose a different file
                 </button>
               </div>
             ) : (
               <div className="flex cursor-pointer flex-col items-center py-8 text-center">
-                <div className="mb-4 rounded-lg border border-gray-200 bg-white p-3">
-                  <FaUpload className="h-4 w-4 text-gray-500" />
+                <div className="mb-4 rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800">
+                  <FaUpload className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                 </div>
-                <p className="mb-1 text-sm font-medium">
+                <p className="mb-1 text-sm font-medium text-gray-800 dark:text-gray-200">
                   Click to upload, or drag and drop
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   MP3 or WAV files only, up to 50MB
                 </p>
               </div>

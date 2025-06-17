@@ -105,7 +105,7 @@ export function PageLayout({
           </div>
         </div>
 
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900">
           <div className="flex h-full">
             <div className="flex-1 px-6 py-5">
               <div className="flex h-full flex-col">{children}</div>

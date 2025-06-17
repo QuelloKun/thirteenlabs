@@ -49,9 +49,11 @@ export function HistoryList({ historyItems }: { historyItems: HistoryItem[] }) {
 
         {/* Content */}
         <div className="relative z-10 flex h-full w-full flex-col items-center md:pt-10">
-          <div className="w-full max-w-2xl rounded-xl border border-gray-200 bg-white p-6 shadow-xl">
+          <div className="w-full max-w-2xl rounded-xl border border-gray-200 bg-white p-6 shadow-xl dark:border-gray-800 dark:bg-gray-900">
             <div className="mb-4">
-              <h2 className="text-lg font-medium">Recent Sound Effects</h2>
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                Recent Sound Effects
+              </h2>
             </div>
 
             {historyItems.length > 0 ? (
@@ -59,7 +61,7 @@ export function HistoryList({ historyItems }: { historyItems: HistoryItem[] }) {
                 {Object.entries(groupedItems).map(([date, items]) => (
                   <div key={date} className="mb-6">
                     <div className="mb-3">
-                      <span className="text-xs font-medium text-gray-500">
+                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
                         {date}
                       </span>
                     </div>
@@ -67,14 +69,14 @@ export function HistoryList({ historyItems }: { historyItems: HistoryItem[] }) {
                       {items.map((item) => (
                         <div
                           key={item.id}
-                          className="flex items-center justify-between gap-2 rounded-lg border border-gray-100 bg-white p-4 hover:bg-gray-50 md:gap-0"
+                          className="flex items-center justify-between gap-2 rounded-lg border border-gray-100 bg-white p-4 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 md:gap-0"
                         >
                           {/* Left side */}
                           <div className="flex min-w-0 flex-1 items-center">
                             <div className="mr-4 flex-shrink-0">
-                              <IoVolumeHighOutline className="h-5 w-5 text-gray-500" />
+                              <IoVolumeHighOutline className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                             </div>
-                            <p className="break-words text-xs font-medium text-gray-800 md:truncate md:text-sm">
+                            <p className="break-words text-xs font-medium text-gray-800 dark:text-gray-200 md:truncate md:text-sm">
                               <span className="block sm:hidden">
                                 {item.title.length > 15
                                   ? `${item.title.substring(0, 15)}...`
@@ -88,7 +90,7 @@ export function HistoryList({ historyItems }: { historyItems: HistoryItem[] }) {
 
                           {/* Right side */}
                           <div className="flex items-center gap-3">
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
                               {item.time}
                             </span>
 
@@ -105,7 +107,7 @@ export function HistoryList({ historyItems }: { historyItems: HistoryItem[] }) {
                                     });
                                   }
                                 }}
-                                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200"
+                                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                               >
                                 <IoPlayOutline className="h-4 w-4" />
                               </button>
@@ -114,13 +116,15 @@ export function HistoryList({ historyItems }: { historyItems: HistoryItem[] }) {
                                   if (item.audioUrl) {
                                     const a = document.createElement("a");
                                     a.href = item.audioUrl;
-                                    a.download = `${item.title || "sound-effect"}.wav`;
+                                    a.download = `${
+                                      item.title || "sound-effect"
+                                    }.wav`;
                                     document.body.appendChild(a);
                                     a.click();
                                     document.body.removeChild(a);
                                   }
                                 }}
-                                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200"
+                                className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                               >
                                 <IoDownloadOutline className="h-4 w-4" />
                               </button>
@@ -134,7 +138,7 @@ export function HistoryList({ historyItems }: { historyItems: HistoryItem[] }) {
               </div>
             ) : (
               <div className="flex h-40 items-center justify-center">
-                <p className="text-center text-gray-500">
+                <p className="text-center text-gray-500 dark:text-gray-400">
                   No sound effects generated yet
                 </p>
               </div>

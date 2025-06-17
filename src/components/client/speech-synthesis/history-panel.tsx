@@ -46,7 +46,7 @@ export function HistoryPanel({
             placeholder="Search history..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+            className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:border-black focus:outline-none focus:ring-1 focus:ring-black dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:focus:border-white"
           />
         </div>
       </div>
@@ -81,8 +81,8 @@ export function HistoryPanel({
             return filteredGroups.length > 0 ? (
               filteredGroups.map(([date, items], groupIndex) => (
                 <div key={date}>
-                  <div className="sticky top-0 z-10 my-2 flex w-full justify-center bg-white py-1">
-                    <div className="rounded-full bg-gray-100 px-3 py-1 text-xs">
+                  <div className="sticky top-0 z-10 my-2 flex w-full justify-center bg-white py-1 dark:bg-gray-950">
+                    <div className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700 dark:bg-gray-800 dark:text-gray-300">
                       {date}
                     </div>
                   </div>
@@ -100,7 +100,7 @@ export function HistoryPanel({
                 </div>
               ))
             ) : (
-              <p className="mt-8 text-center text-sm text-gray-500">
+              <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
                 No results found
               </p>
             );
@@ -108,7 +108,9 @@ export function HistoryPanel({
         </div>
       ) : (
         <div className="flex h-full flex-col items-center justify-center text-center">
-          <p className="mt-3 text-sm text-gray-500">No history items yet</p>
+          <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+            No history items yet
+          </p>
         </div>
       )}
     </div>
@@ -135,20 +137,22 @@ function HistoryItem({
     <div
       onMouseEnter={() => setHoveredItem(item.id)}
       onMouseLeave={() => setHoveredItem(null)}
-      className="relative flex items-center rounded-lg p-4 hover:bg-gray-100"
+      className="relative flex items-center rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-800"
     >
       <div className="flex w-full flex-col gap-1">
         <div className="relative w-full">
-          <p className="truncate text-sm">{item.title || "No title"}</p>
+          <p className="truncate text-sm text-gray-900 dark:text-gray-100">
+            {item.title || "No title"}
+          </p>
           {hoveredItem === item.id && (
-            <div className="absolute right-0 top-0 flex items-center gap-1 bg-gray-100 pl-2">
+            <div className="absolute right-0 top-0 flex items-center gap-1 bg-gray-100 pl-2 dark:bg-gray-800">
               <button
                 onClick={() => onPlay(item)}
-                className="rounded-full p-1 hover:bg-gray-200"
+                className="rounded-full p-1 text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 <IoPlay className="h-5 w-5" />
               </button>
-              <button className="rounded-full p-1 hover:bg-gray-200">
+              <button className="rounded-full p-1 text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">
                 <IoDownloadOutline className="h-5 w-5" />
               </button>
             </div>
@@ -160,11 +164,13 @@ function HistoryItem({
             className="flex h-3 w-3 items-center justify-center rounded-full text-xs text-white"
             style={{ background: voiceUsed.gradientColors }}
           ></div>
-          <span className="text-xs font-light text-gray-500">
+          <span className="text-xs font-light text-gray-500 dark:text-gray-400">
             {voiceUsed.name}
           </span>
-          <span className="text-xs font-light text-gray-500">·</span>
-          <span className="text-xs font-light text-gray-500">
+          <span className="text-xs font-light text-gray-500 dark:text-gray-400">
+            ·
+          </span>
+          <span className="text-xs font-light text-gray-500 dark:text-gray-400">
             {item.time || "now"}
           </span>
         </div>

@@ -86,19 +86,21 @@ export default function Playbar() {
           onClick={togglePlaybar}
           className="absolute bottom-2 left-1/2 z-10 -translate-x-1/2 transform cursor-pointer"
         >
-          <div className="flex h-1 w-96 items-center rounded-full bg-gray-300">
+          <div className="flex h-1 w-96 items-center rounded-full bg-gray-300 dark:bg-gray-700">
             <div
-              className="h-1 rounded-full bg-black"
+              className="h-1 rounded-full bg-black dark:bg-white"
               style={{ width: `${progress === 0 ? 100 : progress}%` }}
             ></div>
           </div>
         </div>
       )}
 
-      <div className={`relative border-t border-gray-200 bg-white shadow-md`}>
-        <div className="absolute left-0 top-0 h-0.5 w-full bg-gray-200 md:hidden">
+      <div
+        className={`relative border-t border-gray-200 bg-white shadow-md dark:border-gray-800 dark:bg-gray-900`}
+      >
+        <div className="absolute left-0 top-0 h-0.5 w-full bg-gray-200 dark:bg-gray-700 md:hidden">
           <div
-            className="absolute h-0.5 bg-black"
+            className="absolute h-0.5 bg-black dark:bg-white"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
@@ -113,10 +115,10 @@ export default function Playbar() {
             {/* Left section */}
             <div className="flex items-center px-4">
               <div className="flex flex-col gap-1">
-                <p className="max-w-xs truncate text-sm">
+                <p className="max-w-xs truncate text-sm text-gray-900 dark:text-gray-100">
                   {currentAudio?.title}
                 </p>
-                <div className="flex items-center text-xs text-gray-400">
+                <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
                   {voice && (
                     <>
                       <div className="flex items-center">
@@ -143,13 +145,13 @@ export default function Playbar() {
               <div className="flex items-center space-x-3">
                 <button
                   onClick={skipBackward}
-                  className="rounded-full p-2 hover:bg-gray-100"
+                  className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <RiReplay10Fill className="h-5 w-5" />
                 </button>
                 <button
                   onClick={togglePlayPause}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black"
                 >
                   {isPlaying ? (
                     <IoPause className="h-5 w-5" />
@@ -159,24 +161,26 @@ export default function Playbar() {
                 </button>
                 <button
                   onClick={skipForward}
-                  className="rounded-full p-2 hover:bg-gray-100"
+                  className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <RiForward10Fill className="h-5 w-5" />
                 </button>
               </div>
               <div className="mt-1 flex w-full items-center">
-                <span className="mr-2 text-xs text-gray-400">
+                <span className="mr-2 text-xs text-gray-500 dark:text-gray-400">
                   {getCurrentTimeFormatted()}
                 </span>
                 <div className="relative flex-1">
-                  <div className="h-1 rounded-full bg-gray-200">
+                  <div className="h-1 rounded-full bg-gray-200 dark:bg-gray-700">
                     <div
-                      className="absolute h-1 rounded-full bg-black"
+                      className="absolute h-1 rounded-full bg-black dark:bg-white"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
                 </div>
-                <span className="ml-2 text-xs text-gray-400">{duration}</span>
+                <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                  {duration}
+                </span>
               </div>
             </div>
 
@@ -184,13 +188,13 @@ export default function Playbar() {
             <div className="flex items-center justify-end gap-4 px-6">
               <button
                 onClick={downloadAudio}
-                className="rounded-full p-1.5 hover:bg-gray-100"
+                className="rounded-full p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <IoDownloadOutline className="h-5 w-5" />
               </button>
               <button
                 onClick={togglePlaybar}
-                className="rounded-full p-1.5 hover:bg-gray-100"
+                className="rounded-full p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <IoChevronDown className="h-5 w-5" />
               </button>
@@ -201,9 +205,11 @@ export default function Playbar() {
           <div className="flex h-full md:hidden">
             <div className="flex flex-1 items-center px-4">
               <div className="flex w-full flex-col gap-1">
-                <p className="truncate text-sm">{currentAudio?.title}</p>
+                <p className="truncate text-sm text-gray-900 dark:text-gray-100">
+                  {currentAudio?.title}
+                </p>
 
-                <div className="flex items-center text-xs text-gray-400">
+                <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
                   {voice && (
                     <>
                       <div className="flex items-center">
@@ -227,13 +233,13 @@ export default function Playbar() {
             <div className="flex items-center gap-2 px-4">
               <button
                 onClick={downloadAudio}
-                className="rounded-full p-1.5 hover:bg-gray-100"
+                className="rounded-full p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <IoDownloadOutline className="h-5 w-5" />
               </button>
               <button
                 onClick={togglePlayPause}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black"
               >
                 {isPlaying ? (
                   <IoPause className="h-5 w-5" />

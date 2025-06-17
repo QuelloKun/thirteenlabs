@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SignInFormValues, signInSchema } from "~/schemas/auth";
+import Image from "next/image";
+import Link from "next/link";
+import { ThemeToggle } from "~/components/client/theme-toggle";
 
 export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +53,7 @@ export default function SignInPage() {
         setError(
           signInResult.error === "CredentialsSignin"
             ? "Invalid email or password"
-            : "Something went wrong",
+            : "Something went wrong"
         );
       }
     } catch (error) {
@@ -61,18 +64,23 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen w-full">
-      <div className="relative w-full lg:w-1/2">
-        <div className="absolute left-8 top-6">
-          <span className="text-xl font-bold tracking-tight text-black">
-            13ThirteenLabs
-          </span>
-        </div>
+    <div className="flex min-h-screen w-full bg-gray-50 dark:bg-gray-950">
+      <div className="relative flex w-full flex-col items-center justify-center p-4 lg:w-1/2">
+        <header className="absolute left-0 top-0 w-full p-6 lg:p-8">
+          <div className="mx-auto flex max-w-md items-center justify-between lg:mx-0 lg:max-w-full">
+            <Link
+              href="/"
+              className="text-xl font-bold tracking-tight text-black dark:text-white"
+            >
+              ThirteenLabs
+            </Link>
+            <ThemeToggle />
+          </div>
+        </header>
 
-        {/* Centered sign up form */}
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="w-full max-w-md p-8">
-            <h2 className="mb-6 text-center text-2xl font-semibold">
+        <div className="w-full max-w-md">
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg dark:border-gray-800 dark:bg-gray-900 md:p-8">
+            <h2 className="mb-6 text-center text-2xl font-semibold text-gray-900 dark:text-gray-100">
               Log in to your account
             </h2>
 
@@ -86,7 +94,7 @@ export default function SignInPage() {
               <div className="mb-4">
                 <label
                   htmlFor="email"
-                  className="mb-1 block text-sm font-medium text-black"
+                  className="mb-1 block text-sm font-medium text-gray-800 dark:text-gray-200"
                 >
                   Email
                 </label>
@@ -96,7 +104,7 @@ export default function SignInPage() {
                   {...register("email")}
                   placeholder="Enter your email address"
                   required
-                  className="w-full rounded-lg border border-gray-200 p-2 placeholder:text-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                  className="w-full rounded-lg border border-gray-200 bg-white p-2 placeholder:text-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:placeholder-gray-400 dark:focus:border-white"
                 />
                 {errors.email && (
                   <p className="mt-1 text-xs text-red-500">
@@ -108,7 +116,7 @@ export default function SignInPage() {
               <div className="mb-4">
                 <label
                   htmlFor="password"
-                  className="mb-1 block text-sm font-medium text-black"
+                  className="mb-1 block text-sm font-medium text-gray-800 dark:text-gray-200"
                 >
                   Password
                 </label>
@@ -118,7 +126,7 @@ export default function SignInPage() {
                   {...register("password")}
                   placeholder="Enter your password"
                   required
-                  className="w-full rounded-lg border border-gray-200 p-2 placeholder:text-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black"
+                  className="w-full rounded-lg border border-gray-200 bg-white p-2 placeholder:text-sm focus:border-black focus:outline-none focus:ring-1 focus:ring-black dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:placeholder-gray-400 dark:focus:border-white"
                 />
                 {errors.password && (
                   <p className="mt-1 text-xs text-red-500">
@@ -130,12 +138,16 @@ export default function SignInPage() {
               <button
                 type="submit"
                 disabled={isLoading || !isFormValid}
-                className={`my-4 w-full rounded-full py-2.5 text-sm text-white transition-colors ${isLoading ? "cursor-not-allowed bg-gray-400" : isFormValid ? "bg-black" : "cursor-not-allowed bg-gray-400"}`}
+                className={`my-4 w-full rounded-full py-2.5 text-sm font-medium text-white transition-colors disabled:cursor-not-allowed disabled:bg-gray-400 ${
+                  isFormValid
+                    ? "bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+                    : "bg-gray-400"
+                }`}
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center">
                     <svg
-                      className="mr-2 h-4 w-4 animate-spin text-white"
+                      className="mr-2 h-4 w-4 animate-spin"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -162,10 +174,10 @@ export default function SignInPage() {
               </button>
 
               <div className="text-center">
-                <span className="text-sm text-gray-600">
-                  Don't have an account?{" "}
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Don&apos;t have an account?{" "}
                   <a
-                    className="font-medium text-black underline"
+                    className="font-medium text-black underline dark:text-white"
                     href="/app/sign-up"
                   >
                     Sign up
@@ -177,18 +189,18 @@ export default function SignInPage() {
         </div>
       </div>
 
-      {/* Right side */}
       <div className="hidden py-[3vh] pr-[3vh] lg:block lg:w-1/2">
         <div className="hidden h-full rounded-3xl bg-gradient-to-b from-indigo-100 via-purple-100 to-[#5960d7] lg:block">
           <div className="flex h-full flex-col p-12">
             <div className="flex h-full items-center justify-center">
-              <img
+              <Image
                 className="w-full rounded-lg"
                 alt="Dashboard preview"
                 src="/placeholder.png"
+                width={1200}
+                height={800}
               />
             </div>
-
             <div className="h-fit w-full max-w-lg">
               <div className="mb-3 flex w-fit rounded-2xl bg-indigo-100 bg-opacity-40 px-3 py-1">
                 <span className="text-xs font-medium uppercase tracking-wider text-white">
