@@ -37,7 +37,9 @@ export default function Sidebar({ isMobile = false }: { isMobile?: boolean }) {
     };
   }, []);
 
+
   const handleSignOut = () => {
+    localStorage.removeItem("bannerDismissed");
     signOut();
     setShowAccountMenu(false);
   };
@@ -113,7 +115,7 @@ export default function Sidebar({ isMobile = false }: { isMobile?: boolean }) {
         </SidebarButton>
       </nav>
 
-      
+      {/* Bottom Section */}
       <div className="mt-auto">
         <div className="flex items-center justify-between">
           <div className="relative" ref={accountMenuRef}>
@@ -146,11 +148,10 @@ export default function Sidebar({ isMobile = false }: { isMobile?: boolean }) {
           </div>
 
           <div className={`${!isExpanded && "hidden"}`}>
-             <ThemeToggle />
+            <ThemeToggle />
           </div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { ServiceType } from "~/types/services";
 import Sidebar from "./sidebar";
 import { useUIStore } from "~/stores/ui-store";
@@ -12,7 +12,7 @@ import { HistoryItem } from "~/lib/history";
 import Playbar from "./playbar";
 import { useAudioStore } from "~/stores/audio-store";
 import { MobileSettingsButton } from "./speech-synthesis/mobile-settings-button";
-import { AlertTriangle } from "lucide-react"; // <-- 1. Import an icon
+import { AlertTriangle, X } from "lucide-react";
 
 export function PageLayout({
   title,
@@ -40,12 +40,26 @@ export function PageLayout({
   } = useUIStore();
   const { currentAudio } = useAudioStore();
 
+  const [isBannerVisible, setIsBannerVisible] = useState(false);
+
+  useEffect(() => {
+    const bannerDismissed = localStorage.getItem("bannerDismissed");
+    if (bannerDismissed !== "true") {
+      setIsBannerVisible(true);
+    }
+  }, []);
+
+  const handleDismissBanner = () => {
+    localStorage.setItem("bannerDismissed", "true");
+    setIsBannerVisible(false);
+  };
+
   useEffect(() => {
     const checkScreenSize = () => {
       setMobileScreen(window.innerWidth < 1024);
     };
     window.addEventListener("resize", checkScreenSize);
-    checkScreenSize(); // Run on initial load
+    checkScreenSize();
     return () => window.removeEventListener("resize", checkScreenSize);
   }, [setMobileScreen]);
 
@@ -108,17 +122,26 @@ export function PageLayout({
           </div>
         </header>
 
-        {/* --- 2. ADD THIS BANNER DIV --- */}
-        <div className="border-b border-yellow-300 bg-yellow-50 p-3 text-center text-sm text-yellow-900 dark:border-yellow-900/50 dark:bg-yellow-900/20 dark:text-yellow-200">
-          <div className="flex items-center justify-center gap-2">
-            <AlertTriangle className="h-4 w-4 flex-shrink-0" />
-            <span>
-              Note: Backend services run on an EC2 instance that may not always
-              be active.
-            </span>
+        {isBannerVisible && (
+          <div className="border-b border-yellow-300 bg-yellow-50 p-3 text-sm text-yellow-900 dark:border-yellow-900/50 dark:bg-yellow-900/20 dark:text-yellow-200">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center justify-center gap-2 sm:flex-1">
+                <AlertTriangle className="h-4 w-4 flex-shrink-0" />
+                <span className="text-center">
+                  Note: Backend services may be offline. Generation is not
+                  guaranteed to work.
+                </span>
+              </div>
+              <button
+                onClick={handleDismissBanner}
+                className="rounded-full p-1 text-current hover:bg-yellow-200/50 dark:hover:bg-yellow-500/20"
+                aria-label="Dismiss message"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           </div>
-        </div>
-        {/* --- END OF BANNER --- */}
+        )}
 
         <div className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900">
           <div className="flex h-full">
