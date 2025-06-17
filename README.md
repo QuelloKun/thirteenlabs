@@ -6,7 +6,7 @@ A full-stack AI voice synthesis platform built with Next.js. This repository con
 
 ### 🚀 **[View the Live Demo Here](https://thirteenlabs.vercel.app/)** 🚀
 
-![ThirteenLabs Application Screenshot](https://i.imgur.com/wR3dIsn.png)
+![ThirteenLabs Application Screenshot](https://imgur.com/X95ONST.png)
 
 
 ## ✨ Features
