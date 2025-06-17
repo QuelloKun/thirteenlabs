@@ -1,29 +1,41 @@
-# Create T3 App
+# ThirteenLabs
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## 🌐 About This Project
 
-## What's next? How do I make an app with this?
+A full-stack AI voice synthesis platform built with Next.js. This repository contains the complete frontend application, which consumes a private set of backend AI services.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+### 🚀 **[View the Live Demo Here](https://thirteenlabs.vercel.app/)** 🚀
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+![ThirteenLabs Application Screenshot](https://i.imgur.com/wR3dIsn.png)
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
 
-## Learn More
+## ✨ Features
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+* **Secure User Authentication**: Full sign-up and sign-in functionality using NextAuth.js.
+* **Text-to-Speech (TTS)**: Convert written text into lifelike speech using AI models.
+* **Voice Changing (Speech-to-Speech)**: Upload an audio file and convert the voice to a different one.
+* **Sound Effect Generation**: Describe a sound and have an AI model generate it for you.
+* **Audio History & Playback**: User-specific history for all generated audio clips with a persistent audio player.
+* **Light & Dark Mode**: Seamless theme switching with a clean, modern UI.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## 🏛️ Architecture
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+This project demonstrates a modern, decoupled web application architecture.
 
-## How do I deploy this?
+* **Frontend**: A responsive Next.js application hosted on **Vercel**. This repository contains all the code for the user interface and user experience.
+* **Backend AI Services**: The core AI models for voice synthesis and sound generation are deployed as a private set of microservices on **AWS**.
+* **Database & Jobs**: User data, authentication, and background job processing are handled by dedicated cloud services (**Supabase** and **Inngest**) to ensure scalability and reliability.
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## 🛠️ Frontend Tech Stack
+
+* **Framework**: [Next.js](https://nextjs.org/) (App Router)
+* **Language**: [TypeScript](https://www.typescriptlang.org/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+* **Database ORM**: [Prisma](https://www.prisma.io/)
+* **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
+* **Form Handling**: [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/)
+
+## ☁️ Deployment
+
+The frontend is continuously deployed via the Git integration on [Vercel](https://vercel.com/), ensuring fast, global delivery.
